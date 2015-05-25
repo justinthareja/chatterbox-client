@@ -1,28 +1,41 @@
 // YOUR CODE HERE:
-$.ajax({
-  url: "https://api.parse.com/1/classes/chatterbox",
-  type: 'GET',
-  dataType:'json',
-  success: function(data){
-  var messages = data.results;
-  // get returns object
-  for (var i = 0; i < messages.length; i++) {
-    var username = messages[i].username;
-    var message = messages[i].text;
-    var $textContainer = $('<li class="list-group-item"></li>')
 
-    $textContainer.text(username +': ' + message);
-    $('.list-group').append($textContainer);
+var getMessages = function(){
+    $.ajax({
+    url: "https://api.parse.com/1/classes/chatterbox",
+    type: 'GET',
+    dataType:'json',
+    success: function(data) {
+      $('li').remove();
+      var messages = data.results;
+      // console.log(data);
 
-  }
-    // parse object for all messages
-    // iterate over object.results
-    // within each iteration capture the element.username field and element.text field
-    // concat them together in a string and add it to a list item within .container
-    console.log(message);
-  }
-})
+      for (var i = 0; i < 15; i++) {
+        var username = messages[i].username;
+        var message = messages[i].text;
+        var $textContainer = $('<li class="list-group-item"></li>');
+        $textContainer.text(username +': ' + message);
+        $('.list-group').append($textContainer);
 
-// function
+      }
+    }
+  })
+};
+
+setInterval(getMessages, 1000);
+
+// var parseMessages = function(data) {
+//   var messages = data.results;
+//   console.log(data);
+
+//   for (var i = 0; i < messages.length; i++) {
+//     var username = messages[i].username;
+//     var message = messages[i].text;
+//     var $textContainer = $('<li class="list-group-item"></li>');
+//     $textContainer.text(username +': ' + message);
+//     $('.list-group').append($textContainer);
+//   }
+
+// };
 
 
