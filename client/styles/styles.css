@@ -6,13 +6,24 @@ body {
 }
 
 #main {
-    width: 500px;
+    width: 800px;
     margin: auto;
     text-align: left;
     background: white;
     padding: 50px 60px;
     border: solid #ddd;
     border-width: 0 1px 1px 1px;
+}
+
+.container {
+  width: 800px;
+  height: 400px;
+  margin: auto;
+  text-align: left;
+  background: white;
+  padding: 50px 60px;
+  border: solid #ddd;
+  border-width: 0 1px 1px 1px;
 }
 
 #main h1 {
