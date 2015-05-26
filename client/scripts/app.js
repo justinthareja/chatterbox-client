@@ -15,10 +15,9 @@ $(document).ready(function() {
         // console.log(data);
 
         for (var i = 0; i < 15; i++) {
-          var username = messages[i].username;
-          var message = messages[i].text;
-          var $textContainer = $('<li class="list-group-item"></li>');
-          $textContainer.text(username +': ' + message);
+          var $username = $('<span></span>').text(messages[i].username);
+          var $message = $('<span></span>').text(': ' + messages[i].text);
+          var $textContainer = $('<li class="list-group-item"></li>').append($username).append($message);
           $('.list-group').append($textContainer);
 
         }
@@ -51,10 +50,9 @@ $(document).ready(function() {
 
 
         for(var i = 0; i < chatMessages.length && i < 15; i++){
-          var username = chatMessages[i].username;
-          var message = chatMessages[i].text;
-          var $textContainer = $('<li class="list-group-item"></li>');
-          $textContainer.text(username +': ' + message);
+          var $username = $('<span></span>').text(chatMessages[i].username);
+          var $message = $('<span></span>').text(': ' + chatMessages[i].text);
+          var $textContainer = $('<li class="list-group-item"></li>').append($username).append($message);
           $('.list-group').append($textContainer);
         }
       }
