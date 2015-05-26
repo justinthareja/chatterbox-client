@@ -1,5 +1,6 @@
 $(document).ready(function() {
 
+ var username;
 
 
 
@@ -33,7 +34,7 @@ $(document).ready(function() {
     $('#userInput').val('');
 
     var message = {
-      username: 'something',
+      username: username,
       text: userInput,
       roomname: 'hrhehe'
     }
@@ -56,7 +57,23 @@ $(document).ready(function() {
 
   $('#submit').on('click', send)
 
+
+
+
+
+$('#login').on('click', function(){
+  username = prompt("Enter your username: ")
+  $('#login').val('');
+  $('#login').text(username);
 });
+
+});
+
+// set username
+  // click login link
+    // alert box comes up to enter username
+    // link switches to username
+    // username variable in js updated
 
 
 
