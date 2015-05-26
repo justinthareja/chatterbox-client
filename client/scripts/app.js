@@ -1,6 +1,7 @@
 $(document).ready(function() {
 
   var username;
+  var roomName;
 
 
 // Display username and message of the 15 most recent messages.
@@ -27,6 +28,7 @@ $(document).ready(function() {
   };
 
 // Initial update of chatrooms
+// only occurs on load, need to wrap in a function and put on interval timer to maintain a current list
   $.ajax({
     url: "https://api.parse.com/1/classes/chatterbox",
     type: 'GET',
@@ -36,22 +38,17 @@ $(document).ready(function() {
       var rooms = {};
 
       for (var i = 0; i < messages.length; i++) {
-        console.log(messages[i].roomname);
         rooms[messages[i].roomname] = true;
       }
 
-      console.log(rooms);
-
-      // debugger;
       for (var key in rooms) {
         var $chatRoom = $('<li class="room"></li>');
         var $anchor = $('<a href="#"></a>');
         $anchor.text(key);
+        $chatRoom.attr('id', key);
         $chatRoom.append($anchor);
         $('.dropdown-menu').prepend($chatRoom);
-        // $anchor.val('');
       }
-
     }
   })
 
@@ -67,7 +64,7 @@ $(document).ready(function() {
     var message = {
       username: username,
       text: userInput,
-      roomname: 'hrhehe'
+      roomname: roomName
     }
 
 
@@ -96,9 +93,12 @@ $(document).ready(function() {
     $('#login').text(username);
   });
 
+// Appends a chatroom to the list
+  $('.addRoom').on('click', function() {
+    roomName = prompt('Name your chat room, punk', 'A chatroom');
+    // on click, setting a room name send them to that room
+    // add a note that the chat room will not be created until the first message is sent.
+  });
 
 }); // end of document ready
-
-
-
 
