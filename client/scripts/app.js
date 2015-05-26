@@ -166,6 +166,13 @@ $(document).ready(function() {
 // Appends a chatroom to the list
   $('.addRoom').on('click', function() {
     roomName = prompt('Name your chat room, punk', 'A chatroom');
+    $('h1').text('').text(roomName);
+    var $room = $('<a class="room" href="#"></a>').text(roomName);
+    var $roomItem = $('<li></li>').append($room);
+    $('.dropdown-menu').prepend($roomItem);
+    //<li id="home"><a class="room" href="#">Home</a></li>
+
+
     // on click, setting a room name send them to that room
     // add a note that the chat room will not be created until the first message is sent.
   });
