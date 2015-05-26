@@ -1,0 +1,17 @@
+.sidebar  {
+  height: 320px;
+  border-color: black;
+  border: 2px;
+  border-style: solid;
+  margin: 20px;
+}
+
+.chatRooms {
+
+  height: 320px;
+  border-color: black;
+  border: 2px;
+  border-style: solid;
+  margin: 20px;
+
+}

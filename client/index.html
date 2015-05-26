@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>chatterbox</title>
+    <link rel="stylesheet" href="styles/style_updated.css">
     <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="styles/styles.css">
 
     <!-- dependencies -->
     <script src="bower_components/jquery/jquery.min.js"></script>
@@ -32,21 +32,31 @@
         </div><!-- /.row -->
       </div>
       <div class="row">
-        <span class="col-md-9">
+        <div class="col-md-9">
           <ul class="list-group"></ul>
-        </span> <!-- /.col-lg-8 -->
-        <span class="col-md-3">
-          <div class="friends">
-            friend1
-            friend2
-            friend3
+        </div> <!-- /.col-lg-8 -->
+        <div class="col-md-3">
+          <div id="friends" class="sidebar">
+          <h2>Friends</h2>
+            <ul>
+              <li>my only friend</li>
+            </ul>
           </div>
-          <div class="chatRooms">
-            room1
-            room2
-            room3
+          <div id="chatRooms" class="sidebar">
+          <h2>Chat Rooms</h2>
+            <!-- Single button -->
+            <div class="btn-group">
+              <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                Action <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" role="menu">
+                <li class="room"><a href="#">Fake Room</a></li>
+                <li class="divider"></li>
+                <li class="addRoom"><a href="#">Add Chat Room</a></li>
+              </ul>
+            </div>
           </div>
-        </span>  <!-- /.col-lg-4 -->
+        </div>  <!-- /.col-lg-4 -->
       </div><!-- /.row -->
     </div> <!-- /.container -->
 

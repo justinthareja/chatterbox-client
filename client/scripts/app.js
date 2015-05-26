@@ -1,16 +1,16 @@
 $(document).ready(function() {
 
- var username;
+  var username;
 
 
-
+// Display username and message of the 15 most recent messages.
   var getMessages = function(){
       $.ajax({
       url: "https://api.parse.com/1/classes/chatterbox",
       type: 'GET',
       dataType:'json',
       success: function(data) {
-        $('li').remove();
+        $('.list-group-item').remove();
         var messages = data.results;
         // console.log(data);
 
@@ -26,8 +26,39 @@ $(document).ready(function() {
     })
   };
 
+// Initial update of chatrooms
+  $.ajax({
+    url: "https://api.parse.com/1/classes/chatterbox",
+    type: 'GET',
+    dataType:'json',
+    success: function(data) {
+      var messages = data.results;
+      var rooms = {};
+
+      for (var i = 0; i < messages.length; i++) {
+        console.log(messages[i].roomname);
+        rooms[messages[i].roomname] = true;
+      }
+
+      console.log(rooms);
+
+      // debugger;
+      for (var key in rooms) {
+        var $chatRoom = $('<li class="room"></li>');
+        var $anchor = $('<a href="#"></a>');
+        $anchor.text(key);
+        $chatRoom.append($anchor);
+        $('.dropdown-menu').prepend($chatRoom);
+        // $anchor.val('');
+      }
+
+    }
+  })
+
+// Retrieve messages every second.
   setInterval(getMessages, 1000);
 
+// Extract string from input box and post to server along with username and roomname.
   var send = function () {
 
     var userInput = $('#userInput').val();
@@ -57,23 +88,16 @@ $(document).ready(function() {
 
   $('#submit').on('click', send)
 
+// Set username
+// After username is set, clicking username will allow user to change username again.
+  $('#login').on('click', function(){
+    username = prompt("Enter your username: ")
+    $('#login').val('');
+    $('#login').text(username);
+  });
 
 
-
-
-$('#login').on('click', function(){
-  username = prompt("Enter your username: ")
-  $('#login').val('');
-  $('#login').text(username);
-});
-
-});
-
-// set username
-  // click login link
-    // alert box comes up to enter username
-    // link switches to username
-    // username variable in js updated
+}); // end of document ready
 
 
 
