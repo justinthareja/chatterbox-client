@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-  var username, message, userInput, roomName;
+  var username, message, userInput, roomName = 'Home';
   var timerId = 0;
 
 // Display username and message of the 15 most recent messages.
@@ -61,7 +61,17 @@ $(document).ready(function() {
     });
   }
 
-  setInterval(getChatRoomMessages, 1000);
+  setInterval(function () {
+
+    if (roomName === 'Home') {
+      getHomeMessages();
+    }
+    else {
+      getChatRoomMessages();
+    }
+
+
+  }, 1000);
 
 
 // Initial update of chatrooms
