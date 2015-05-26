@@ -1,16 +1,17 @@
 $(document).ready(function() {
 
   var username, message, userInput, roomName;
+  var timerId = 0;
 
 // Display username and message of the 15 most recent messages.
-  var getMessages = function(){
+  var getHomeMessages = function(){
       $.ajax({
       url: "https://api.parse.com/1/classes/chatterbox",
       type: 'GET',
       dataType:'json',
       success: function(data) {
-        $('.list-group-item').remove();
         var messages = data.results;
+        $('.list-group-item').remove();
         // console.log(data);
 
         for (var i = 0; i < 15; i++) {
@@ -24,6 +25,44 @@ $(document).ready(function() {
       }
     })
   };
+
+// Retrieve messages every second.
+  // timerId = setInterval(getHomeMessages, 1000);
+
+// Display username and messages of the 15 (or less) most recent messages with matching chat room name
+  var getChatRoomMessages = function() {
+
+    $.ajax({
+      url: "https://api.parse.com/1/classes/chatterbox",
+      type: 'GET',
+      dataType:'json',
+      success: function(data) {
+        // debugger;
+        var messages = data.results;
+        var chatMessages = [];
+        $('.list-group-item').remove();
+
+
+        for (var i = 0; i < messages.length; i++) {
+          if (messages[i].roomname === roomName) {
+            chatMessages.push(messages[i]);
+          }
+        }
+
+
+        for(var i = 0; i < chatMessages.length && i < 15; i++){
+          var username = chatMessages[i].username;
+          var message = chatMessages[i].text;
+          var $textContainer = $('<li class="list-group-item"></li>');
+          $textContainer.text(username +': ' + message);
+          $('.list-group').append($textContainer);
+        }
+      }
+    });
+  }
+
+  setInterval(getChatRoomMessages, 1000);
+
 
 // Initial update of chatrooms
 // only occurs on load, need to wrap in a function and put on interval timer to maintain a current list
@@ -50,8 +89,6 @@ $(document).ready(function() {
     }
   })
 
-// Retrieve messages every second.
-  setInterval(getMessages, 1000);
 
 // Extract string from input box and post to server along with username and roomname.
   var send = function () {
@@ -81,6 +118,13 @@ $(document).ready(function() {
     });
   }
 
+
+
+
+
+
+// EVENT LISTENERS
+
   $('#submit').on('click', send)
 
 // Set username
@@ -98,10 +142,13 @@ $(document).ready(function() {
   });
 
   $('.dropdown-menu').delegate('.room', 'click', function () {
+    $('.list-group-item').remove();
     roomName = $(this).text();
     $('h1').text('').text(roomName);
-    console.log(roomName);
+    // clearInterval(timerId);
+    // timerId = setInterval(getChatRoomMessages, 1000);
   });
+
 
 
 }); // end of document ready
