@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
   var username, message, userInput, roomName = 'Home';
-  var timerId = 0;
+  var friends = {};
 
 // Display username and message of the 15 most recent messages.
   var getHomeMessages = function(){
@@ -11,14 +11,22 @@ $(document).ready(function() {
       dataType:'json',
       success: function(data) {
         var messages = data.results;
-        $('.list-group-item').remove();
+        $('.text-container').remove();
         // console.log(data);
 
         for (var i = 0; i < 15; i++) {
-          var $username = $('<span></span>').text(messages[i].username);
+          var $username = $('<span class="username"></span>').text(messages[i].username);
           var $message = $('<span></span>').text(': ' + messages[i].text);
-          var $textContainer = $('<li class="list-group-item"></li>').append($username).append($message);
-          $('.list-group').append($textContainer);
+          var $textContainer = $('<li class="list-group-item text-container"></li>').append($username).append($message);
+
+          if (friends[messages[i].username]) {
+            $bold = $('<strong></strong>')
+            $bold.append($textContainer);
+            $('.messages').append($bold);
+          }
+          else {
+            $('.messages').append($textContainer);
+          }
 
         }
       }
@@ -36,10 +44,9 @@ $(document).ready(function() {
       type: 'GET',
       dataType:'json',
       success: function(data) {
-        // debugger;
         var messages = data.results;
         var chatMessages = [];
-        $('.list-group-item').remove();
+        $('.text-container').remove();
 
 
         for (var i = 0; i < messages.length; i++) {
@@ -48,12 +55,20 @@ $(document).ready(function() {
           }
         }
 
-
         for(var i = 0; i < chatMessages.length && i < 15; i++){
-          var $username = $('<span></span>').text(chatMessages[i].username);
+          var $username = $('<span class="username"></span>').text(chatMessages[i].username);
           var $message = $('<span></span>').text(': ' + chatMessages[i].text);
-          var $textContainer = $('<li class="list-group-item"></li>').append($username).append($message);
-          $('.list-group').append($textContainer);
+          var $textContainer = $('<li class="list-group-item text-container"></li>').append($username).append($message);
+
+          if (friends[messages[i].username]) {
+            $bold = $('<strong></strong>');
+            $bold.append($textContainer);
+            $('.messages').append($bold);
+          }
+          else {
+            $('.messages').append($textContainer);
+          }
+
         }
       }
     });
@@ -150,13 +165,21 @@ $(document).ready(function() {
   });
 
   $('.dropdown-menu').delegate('.room', 'click', function () {
-    $('.list-group-item').remove();
+    $('.text-container').remove();
     roomName = $(this).text();
     $('h1').text('').text(roomName);
     // clearInterval(timerId);
     // timerId = setInterval(getChatRoomMessages, 1000);
   });
 
+  $('.messages').delegate('.username', 'click', function () {
+    var name = $(this).text();
+    friends[name] = true;
+    // console.log(friends);
+    var $friend = $('<li class="list-group-item"></li>');
+    $friend.append(this);
+    $('.friend-list').append($friend);
+  })
 
 
 }); // end of document ready
