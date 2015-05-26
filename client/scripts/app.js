@@ -5,6 +5,7 @@ $(document).ready(function() {
 
 // Display username and message of the 15 most recent messages.
   var getHomeMessages = function(){
+    // debugger;
       $.ajax({
       url: "https://api.parse.com/1/classes/chatterbox",
       type: 'GET',
@@ -17,16 +18,18 @@ $(document).ready(function() {
         for (var i = 0; i < 15; i++) {
           var $username = $('<span class="username"></span>').text(messages[i].username);
           var $message = $('<span></span>').text(': ' + messages[i].text);
-          var $textContainer = $('<li class="list-group-item text-container"></li>').append($username).append($message);
+          var $textContainer = $('<li class="list-group-item text-container"></li>')
 
           if (friends[messages[i].username]) {
             $bold = $('<strong></strong>')
-            $bold.append($textContainer);
-            $('.messages').append($bold);
+            $bold.append($username).append($message);
+            $textContainer.append($bold);
+            // $('.messages').append($textContainer);
           }
           else {
-            $('.messages').append($textContainer);
+            $textContainer.append($username).append($message);
           }
+            $('.messages').append($textContainer);
 
         }
       }
@@ -54,20 +57,23 @@ $(document).ready(function() {
             chatMessages.push(messages[i]);
           }
         }
+        debugger;
 
         for(var i = 0; i < chatMessages.length && i < 15; i++){
           var $username = $('<span class="username"></span>').text(chatMessages[i].username);
           var $message = $('<span></span>').text(': ' + chatMessages[i].text);
           var $textContainer = $('<li class="list-group-item text-container"></li>').append($username).append($message);
 
-          if (friends[messages[i].username]) {
-            $bold = $('<strong></strong>');
-            $bold.append($textContainer);
-            $('.messages').append($bold);
+          if (friends[chatMessages[i].username]) {
+            $bold = $('<strong></strong>')
+            $bold.append($username).append($message);
+            $textContainer.append($bold);
+            // $('.messages').append($textContainer);
           }
           else {
-            $('.messages').append($textContainer);
+            $textContainer.append($username).append($message);
           }
+            $('.messages').append($textContainer);
 
         }
       }
@@ -175,11 +181,22 @@ $(document).ready(function() {
   $('.messages').delegate('.username', 'click', function () {
     var name = $(this).text();
     friends[name] = true;
-    // console.log(friends);
-    var $friend = $('<li class="list-group-item"></li>');
-    $friend.append(this);
-    $('.friend-list').append($friend);
+    populateFriends();
   })
+
+  var populateFriends = function(){
+    $('.friend').remove();
+    for(var key in friends){
+      var $friend = $('<li class="list-group-item friend"></li>');
+      $friend.text(key);
+      $('.friend-list').append($friend);
+    }
+  };
+  // function
+  // clear friend list
+  // for loop
+  // goes through friends object
+  // appends friends to friends list
 
 
 }); // end of document ready
