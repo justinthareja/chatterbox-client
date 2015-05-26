@@ -16,25 +16,38 @@
     <script src="scripts/app.js"></script>
   </head>
   <body>
-    <div id="main">
-      <h1>chatterbox</h1>
+    <div class="container-fluid">
+      <div id="main">
+        <h1>chatterbox</h1>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="input-group">
+              <input type="text" class="form-control" id="userInput" placeholder="Speak yo mind">
+              <span class="input-group-btn">
+                <button class="btn btn-primary" id="submit" type="button">Submit</button>
+              </span>
+            </div><!-- /input-group -->
+          </div><!-- /.col-lg-6 -->
+        </div><!-- /.row -->
+      </div>
       <div class="row">
-        <div class="col-lg-12">
-          <div class="input-group">
-            <input type="text" class="form-control" id="userInput" placeholder="Speak yo mind">
-            <span class="input-group-btn">
-              <button class="btn btn-primary" id="submit" type="button">Submit</button>
-            </span>
-          </div><!-- /input-group -->
-        </div><!-- /.col-lg-6 -->
+        <span class="col-md-9">
+          <ul class="list-group"></ul>
+        </span> <!-- /.col-lg-8 -->
+        <span class="col-md-3">
+          <div class="friends">
+            friend1
+            friend2
+            friend3
+          </div>
+          <div class="chatRooms">
+            room1
+            room2
+            room3
+          </div>
+        </span>  <!-- /.col-lg-4 -->
       </div><!-- /.row -->
-    </div>
-    <div class="container">
-    <ul class="list-group">
-      <!-- <li class="list-group-item">Cras justo odio</li> -->
-    </ul>
-
-    </div>
+    </div> <!-- /.container -->
 
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
   </body>
