@@ -1,8 +1,6 @@
 $(document).ready(function() {
 
-  var username;
-  var roomName;
-
+  var username, message, userInput, roomName;
 
 // Display username and message of the 15 most recent messages.
   var getMessages = function(){
@@ -42,8 +40,8 @@ $(document).ready(function() {
       }
 
       for (var key in rooms) {
-        var $chatRoom = $('<li class="room"></li>');
-        var $anchor = $('<a href="#"></a>');
+        var $chatRoom = $('<li></li>');
+        var $anchor = $('<a class="room" href="#"></a>');
         $anchor.text(key);
         $chatRoom.attr('id', key);
         $chatRoom.append($anchor);
@@ -57,17 +55,18 @@ $(document).ready(function() {
 
 // Extract string from input box and post to server along with username and roomname.
   var send = function () {
-
-    var userInput = $('#userInput').val();
+    // extract user input
+    userInput = $('#userInput').val();
     $('#userInput').val('');
 
-    var message = {
+    // updates current message with username and roomname
+    message = {
       username: username,
       text: userInput,
       roomname: roomName
     }
 
-
+    // post message to server
     $.ajax({
       url: 'https://api.parse.com/1/classes/chatterbox',
       type: 'POST',
@@ -80,7 +79,6 @@ $(document).ready(function() {
         console.error('chatterbox: Failed to send message');
       }
     });
-
   }
 
   $('#submit').on('click', send)
@@ -89,8 +87,7 @@ $(document).ready(function() {
 // After username is set, clicking username will allow user to change username again.
   $('#login').on('click', function(){
     username = prompt("Enter your username: ")
-    $('#login').val('');
-    $('#login').text(username);
+    $('#login').val('').text(username);
   });
 
 // Appends a chatroom to the list
@@ -99,6 +96,13 @@ $(document).ready(function() {
     // on click, setting a room name send them to that room
     // add a note that the chat room will not be created until the first message is sent.
   });
+
+  $('.dropdown-menu').delegate('.room', 'click', function () {
+    roomName = $(this).text();
+    $('h1').text('').text(roomName);
+    console.log(roomName);
+  });
+
 
 }); // end of document ready
 
