@@ -18,10 +18,9 @@
   <body>
     <div class="container">
       <div id="main">
-        <h1>chatterbox</h1>
-        <a id="login" href="#">Set username</a>
         <div class="row">
-          <div class="col-md-12">
+          <div class="col-md-9">
+            <h1>chatterbox</h1>
             <div class="input-group">
               <input type="text" class="form-control" id="userInput" placeholder="Speak yo mind">
               <span class="input-group-btn">
@@ -29,8 +28,24 @@
               </span>
             </div><!-- /input-group -->
           </div><!-- /.col-lg-6 -->
+          <div class="col-md-3">
+            <a id="login" href="#">Set username</a>
+            <div id="chatRooms" class="sidebar">
+              <!-- Single button -->
+              <div class="btn-group">
+                <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                  Chat Rooms <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                  <li id="home"><a class="room" href="#">Home</a></li>
+                  <li class="divider"></li>
+                  <li class="addRoom"><a href="#">Add Chat Room</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
         </div><!-- /.row -->
-      </div>
       <div class="row">
         <div class="col-md-9">
           <ul class="list-group messages"></ul>
@@ -39,20 +54,6 @@
           <div id="friends" class="sidebar">
             <h2>Friends</h2>
             <ul class="list-group friend-list"></ul>
-          </div>
-          <div id="chatRooms" class="sidebar">
-          <h2>Chat Rooms</h2>
-            <!-- Single button -->
-            <div class="btn-group">
-              <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                Chat Rooms <span class="caret"></span>
-              </button>
-              <ul class="dropdown-menu" role="menu">
-                <li id="home"><a class="room" href="#">Home</a></li>
-                <li class="divider"></li>
-                <li class="addRoom"><a href="#">Add Chat Room</a></li>
-              </ul>
-            </div>
           </div>
         </div>  <!-- /.col-lg-4 -->
       </div><!-- /.row -->

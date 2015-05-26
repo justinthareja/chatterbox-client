@@ -1,17 +1,7 @@
-.sidebar  {
-  height: 320px;
-  border-color: black;
-  border: 2px;
-  border-style: solid;
-  margin: 20px;
+.row {
+  padding: 20px;
 }
 
-.chatRooms {
-
-  height: 320px;
-  border-color: black;
-  border: 2px;
-  border-style: solid;
-  margin: 20px;
-
-}
+/*a#login {
+  float: right;
+}*/
